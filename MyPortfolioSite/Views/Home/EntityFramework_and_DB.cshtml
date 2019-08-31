@@ -1,0 +1,136 @@
+﻿
+@model MyPortfolioSite.Models.Context_Model
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EntityFramework_and_DB</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <br />
+            <div class="p-3 border bg-light">
+                <h4 class="text-center">People</h4>
+                <table class="table">
+                    <tr>
+                        <th>
+                            <a>Name</a>
+                        </th>
+                        <th>
+                            <a>Phone</a>
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Peoples_Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditPeople", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "DeletePeople", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div>
+                    <a href="@Url.Action("CreatePeople", "Home")" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add People</a>
+                </div>
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <br />
+            <div class="p-3 border bg-light">
+                <h4 class="text-center">Projects</h4>
+                <table class="table">
+                    <tr>
+                        <th>
+                            <a>Name</a>
+                        </th>
+                        <th>
+                            <a>Price</a>
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Projects_Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditProject", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "DeleteProject", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div>
+                    <a href="@Url.Action("CreateProject", "Home")" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <br />
+            <div class="p-3 border bg-light">
+                <h4 class="text-center">People and their projects</h4>
+                <table class="table">
+                    <tr>
+                        <th>
+                            <a>Name</a>
+                        </th>
+                        <th>
+                            <a>Projects</a>
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Peoples_Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @foreach (var project in item.Projects)
+                                {
+                                 @Html.DisplayFor(modelItem => project.Name)<br />
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Add project to player", "AddProjectToPeople", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>               
+            </div>
+        </div>
+    </div>
+</body>
+</html>

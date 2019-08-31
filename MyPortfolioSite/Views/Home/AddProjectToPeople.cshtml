@@ -1,0 +1,98 @@
+﻿@model MyPortfolioSite.Models.ModelForAddProjectToPeople
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddProjectToPeople</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            $("#inputProject").change(function () {
+                t = $("#inputProject").val();
+                //alert(t); 
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/AddProjectId",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"id":"' + t + '"}',
+                    dataType: "html",
+                    success: function () {
+                        
+                    }
+                });
+             });
+        });
+    </script>
+
+    <div class="container">
+
+        <div class="row mx-md-n5">
+            <div class="col px-md-5">
+                <br />
+                <div class="p-3 border bg-light">
+                    <h4 class="text-center text-danger">Add project to people</h4>
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.People.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.People.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.People.Phone)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.People.Phone)
+                        </dd>
+                    </dl>
+
+                    <div class="input-group">
+                        <select class="custom-select" id="inputProject" aria-label="Example select with button addon">
+                            <option selected>Choose...</option>
+                            @foreach (var i in Model.Projects_Model)
+                            {
+                                <option value="@i.Id">@i.Name</option>
+                            }
+                        </select>
+
+
+
+                        @using (Html.BeginForm("AddPeopleInProject", "Home", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.Hidden("People_ID", Model.People.Id);
+
+                            <div class="input-group-append">
+                                <button type="submit" id="AddProject" class="btn btn-outline-secondary">Add peole in this project</button>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div div class="col text-center">
+        <a href="@Url.Action("EntityFramework_and_DB", "Home")" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PostGetRequest</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            $("#PriceBtn").click(function () {
+                if ($("#InputCryptoName").val() == "") {
+                    alert("Enter Cryptocurrency name");
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/GetPriceCrypto",
+                        contentType: "application/json; charset=utf-8",
+                        data: '{"CryptoName":"' + $("#InputCryptoName").val() + '"}',
+                        dataType: "html",
+                        success: function (result) {
+                            $("#price").html(result);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <hr />
+    <div class="alert alert-primary text-center" role="alert">
+        <h4>Example of using "Post" and "Get" request</h4>
+    </div>
+    <div class="jumbotron">
+        <h1 class="display-4 text-center">How much is cryptocurrency right now?</h1>
+        <p class="lead">On this page you can find out the price of cryptocurrency now.</p>
+        <hr class="my-4">
+        <p>Enter cryptocurrency ICO (example BTC or DASH)</p>
+        <input id="InputCryptoName" type="text" class="form-control" placeholder="Cryptocurrency Name" aria-describedby="basic-addon1">
+        <h2 id="price" class="text-lg-left">0.00 $</h2>
+        <hr class="my-4">
+        <a id="PriceBtn" class="btn btn-primary btn-lg btn-block" role="button">Learn Price</a>
+    </div>
+</body>
+</html>
