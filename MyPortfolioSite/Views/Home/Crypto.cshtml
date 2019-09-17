@@ -1,0 +1,312 @@
+﻿
+@model MyPortfolioSite.FolderForCryptoTest.SelectionCryptoCurrency
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/node_modules/chart.js/dist/Chart.js"></script>
+    <title>Crypto</title>
+</head>
+<body>
+    <!-- Button trigger modal -->
+    <div div class="col text-center">
+        <hr class="my-2">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalScrollable">
+            Description of what needed to be done in tasks
+        </button>
+    </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle">Description tasks</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <span class="font-weight-bold">Task 1.</span>
+                            Create a page, which lists all crypto currencies in a form of a table (use any HTML tags as long as it displays as a table).
+                            The table should contain the following columns: id, ticker, name.
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 2.</span>
+                            Decorate the page from task #1 with CSS via using Bootstrap or by developing your own styles.
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 3.</span>
+                            Add a column "Created On" to the table. Use moment.js to display how long ago each currency was created (e.g. "3 days ago" or "10 years ago").
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 4.</span>
+                            Split the page into left and right parts. The left part should contain the list of currencies including ticker and name.
+                            When user clicks on a list item, the right hand side should display id, ticker, name, and creation date of a selected currency.
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 5.</span>
+                            Test #4 plus add a price chart to the right-hand side. Use any charting library or do it via SVG.
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 6.</span>
+                            Test #4 plus implement crypto currency search on the left hand side. User starts typing a currency name or ticker, and the page displays matching results.
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 7.</span>
+                            Task #4 plus the page should preserve the selection after user clicks "Refresh" in the browser.
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 8.</span> 
+                            Task #4 plus once a user selects a crypto currency, the page should change the URL.
+                            User should be able to copy and paste the URL into a different window, and the page should display the selection.
+                        </p>
+                        <p>
+                            <span class="font-weight-bold">Task 9.</span>
+                            Task #4 plus make the page responsive. On the cell phone the right hand side should display at the bottom.
+                        </p>                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row mx-md-n5">
+                <div class="col px-md-5">
+                    <br />
+                    <div class="p-3 border bg-light">
+                        <h4 class="text-center">Task#1, Task#2, Task#3</h4>
+                        <hr class="my-4">
+                        <table class="table-bordered table thead-dark">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Ticker</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Created On</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="body-content">
+                                @if (MyPortfolioSite.FolderForCryptoTest.CryptoModel.Cryptos != null)
+                                {
+                                    foreach (var i in MyPortfolioSite.FolderForCryptoTest.CryptoModel.Cryptos)
+                                    {
+                                        <tr>
+                                            <td>@i.Id</td>
+                                            <td>@i.Ticker</td>
+                                            <td>@i.Name</td>
+                                            <td id="@i.Ticker"></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row mx-md-n5">
+                <div class="col px-md-5">
+                    <br />
+                    <div class="p-3 border bg-light">
+                        <h4 class="text-center">Task#4, Task#6</h4>
+                        <hr class="my-4">
+                        <form class="form-inline">
+                            <input id="Search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            @*<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
+                        </form>
+                        <hr class="my-4">
+                        <table class="table-bordered table table-hover thead-dark">
+                            <thead class="thead-dark">
+                                <tr>
+                                    @*<th scope="col">ID</th>*@
+                                    <th scope="col">Ticker</th>
+                                    <th scope="col">Name</th>
+                                    @*<th scope="col">Created On</th>*@
+                                </tr>
+                            </thead>
+
+                            <tbody class="body-content">
+                                @if (MyPortfolioSite.FolderForCryptoTest.CryptoModel.Cryptos != null)
+                                {
+                                    foreach (var i in MyPortfolioSite.FolderForCryptoTest.CryptoModel.Cryptos)
+                                    {
+                                        <tr class="Search" onclick="Get_ID(this)" id="@i.Name">
+                                            @*<td>@i.Id</td>*@
+                                            <td>@i.Ticker</td>
+                                            <td>@i.Name</td>
+                                            @*<td id="@i.Ticker"></td>*@
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col px-md-5">
+                    <br />
+                    <div class="p-3 border bg-light">
+                        <h4 class="text-center">Task#5, Task#7, Task#8, Task#9</h4>
+                        <hr class="my-4">
+                        <div class="col px-md-5">
+                            <span id="Description_ID">
+                                ID:
+                                <br />Ticker:
+                                <br />Name:
+                                <br />Creating date:
+                            </span>
+                        </div>
+                        <div class="col px-md-5">
+                            <canvas id="myChart" width="100" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        var myChart;
+
+        $(document).ready(function () {
+          AddDataInCreatOn();
+          CreateChart();
+          RefrechDateForCrypto();
+        });
+
+
+
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1) {
+                return true;
+            }
+        }
+
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            })
+
+        });
+
+        function Get_ID(element) {
+            DateFromTable(element.id);
+        }
+
+        function DateFromTable(CryptoName) {
+
+            var obj = { CryptoName: CryptoName };
+
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetSelectionCurrency',
+                contentType: 'application/json; charset=utf-8',
+                data: obj,
+                success: function (result) {
+                    AddDataDescriptionCurrency(result);
+                    history.pushState(null, null, "/Home/Crypto/?CryptoName=" + CryptoName);
+                }
+            });
+        }
+
+        function AddDataDescriptionCurrency(CurerencyData) {
+
+            var s = 'Id: ' + CurerencyData.Id;
+            s += '<br>Ticker: ' + CurerencyData.Ticker;
+            s += '<br>Name: ' + CurerencyData.Name;
+            s += '<br>Creating date: ' + CurerencyData.CreatedOn;
+            $('#Description_ID').html(s);
+            RemoveDataChart(myChart);
+            AddDataChart(myChart, CurerencyData.DateForChart, CurerencyData.PriceForChart);
+        }
+
+
+        function returnMoment(Ticket, CreatData) {
+
+             var output = document.getElementById(Ticket);
+             output.innerHTML = moment(CreatData).fromNow();
+        }
+
+        function AddDataInCreatOn() {
+
+            @foreach (var i in MyPortfolioSite.FolderForCryptoTest.CryptoModel.Cryptos)
+             {
+                @:returnMoment('@i.Ticker', '@i.CreatedOn');
+             }
+        }
+
+        function CreateChart() {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Price chart',
+                        data: [],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        function RemoveDataChart(chart) {
+            chart.data.labels.pop();
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.pop();
+            });
+            chart.update();
+        }
+
+        function AddDataChart(chart, label, data) {
+            chart.data.labels = label
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data = data;
+            });
+            chart.update();
+        }
+
+        function RefrechDateForCrypto() {
+
+            @if (Model != null)
+            {
+                @:DateFromTable('@Model.Name')
+            }
+        }
+        </script>
+</body>
+</html>

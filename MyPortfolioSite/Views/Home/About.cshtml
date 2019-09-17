@@ -1,7 +1,47 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "About me";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title – приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <h2>@ViewBag.Title</h2>
+    <img src="~/Images/logo.png" alt="..." class="img-thumbnail" width="125" height="125" />
+    <hr class="my-4">
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="p-3 border bg-light">
+                <h3 class="text-primary">@ViewBag.Message</h3>
+                <p class="text-left font-weight-bolder">C#, .NET, ASP.NET MVC, ASP.NET Core MVC;</p>
+                <p class="text-left font-weight-bolder">NET 4.5.x/4.7.x;</p>
+                <p class="text-left font-weight-bolder">JSON, TCP/IP, Protocol Buffers, LINQ;</p>
+                <p class="text-left font-weight-bolder">Git, SVN;</p>
+                <p class="text-left font-weight-bolder">HTML, CSS, JS, jQuery, ajax;</p>
+                <p class="text-left font-weight-bolder">EntityFramework, SQL;</p>
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="p-3 border bg-light">
+                <h4 class="text-primary">Additional Experience</h4>
+                <p class="text-left font-weight-bolder">Unity(Windows/Android)</p>
+                <p class="text-left font-weight-bolder">Visual Studio (Windows Forms)</p>
+                <p class="text-left font-weight-bolder">Delphi(Windows Forms);</p>
+                <h4 class="text-primary">Other skills</h4>
+                <p class="text-left font-weight-bolder">English : Pre-Intermediate;</p>
+                <h4 class="text-primary">Code examples</h4>
+                <a href="https://github.com/MaximusGame" class="text-decoration-none">Git repository</a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

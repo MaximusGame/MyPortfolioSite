@@ -63,8 +63,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -75,11 +75,11 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -132,9 +132,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\DB_Contex.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="DataModel\People.cs" />
     <Compile Include="DataModel\Project.cs" />
+    <Compile Include="FolderForCryptoTest\CryptoModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -159,6 +159,20 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\ScreechOfSteel.jpg" />
     <Content Include="Images\TVout.png" />
+    <Content Include="node_modules\chart.js\dist\Chart.bundle.js" />
+    <Content Include="node_modules\chart.js\dist\Chart.bundle.min.js" />
+    <Content Include="node_modules\chart.js\dist\Chart.css" />
+    <Content Include="node_modules\chart.js\dist\Chart.js" />
+    <Content Include="node_modules\chart.js\dist\Chart.min.css" />
+    <Content Include="node_modules\chart.js\dist\Chart.min.js" />
+    <Content Include="node_modules\chartjs-color-string\color-string.js" />
+    <Content Include="node_modules\chartjs-color-string\test\basic.js" />
+    <Content Include="node_modules\chartjs-color\index.js" />
+    <Content Include="node_modules\color-convert\conversions.js" />
+    <Content Include="node_modules\color-convert\index.js" />
+    <Content Include="node_modules\color-convert\test\basic.js" />
+    <Content Include="node_modules\color-convert\test\speed.js" />
+    <Content Include="node_modules\color-name\index.js" />
     <Content Include="node_modules\dom7\.editorconfig" />
     <Content Include="node_modules\dom7\CHANGELOG.md" />
     <Content Include="node_modules\dom7\dist\dom7.min.js.map" />
@@ -374,6 +388,31 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="FolderForCryptoTest\Crypto.json" />
+    <Content Include="node_modules\chartjs-color\CHANGELOG.md" />
+    <Content Include="node_modules\chartjs-color\LICENSE" />
+    <Content Include="node_modules\chartjs-color\package.json" />
+    <Content Include="node_modules\chartjs-color\README.md" />
+    <Content Include="node_modules\chartjs-color-string\.travis.yml" />
+    <Content Include="node_modules\chartjs-color-string\CHANGELOG.md" />
+    <Content Include="node_modules\chartjs-color-string\LICENSE" />
+    <Content Include="node_modules\chartjs-color-string\package.json" />
+    <Content Include="node_modules\chartjs-color-string\README.md" />
+    <Content Include="node_modules\color-convert\.travis.yml" />
+    <Content Include="node_modules\color-convert\CHANGELOG.md" />
+    <Content Include="node_modules\color-convert\component.json" />
+    <Content Include="node_modules\color-convert\LICENSE" />
+    <Content Include="node_modules\color-convert\package.json" />
+    <Content Include="node_modules\color-convert\README.md" />
+    <Content Include="node_modules\color-name\LICENSE" />
+    <Content Include="node_modules\color-name\package.json" />
+    <Content Include="node_modules\color-name\README.md" />
+    <Content Include="node_modules\chart.js\bower.json" />
+    <Content Include="node_modules\chart.js\composer.json" />
+    <Content Include="node_modules\chart.js\LICENSE.md" />
+    <Content Include="node_modules\chart.js\package.json" />
+    <Content Include="node_modules\chart.js\README.md" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -389,6 +428,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -397,7 +440,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -422,12 +467,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\PostGetRequest.cshtml" />
     <Content Include="Views\Home\EntityFramework_and_DB.cshtml" />
-    <Content Include="Views\Shared\Peoples.cshtml" />
-    <Content Include="Views\People\Create.cshtml" />
-    <Content Include="Views\People\Delete.cshtml" />
-    <Content Include="Views\People\Details.cshtml" />
-    <Content Include="Views\People\Edit.cshtml" />
-    <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\Home\CreatePeople.cshtml" />
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\EditPeople.cshtml" />
@@ -435,6 +474,8 @@
     <Content Include="Views\Home\AddProjectToPeople.cshtml" />
     <Content Include="Views\Home\EditProject.cshtml" />
     <Content Include="Views\Home\DeleteProject.cshtml" />
+    <Content Include="Views\Home\ICUTech_Test.cshtml" />
+    <Content Include="Views\Home\Crypto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

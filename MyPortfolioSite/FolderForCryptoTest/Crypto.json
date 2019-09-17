@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "ticker": "BTC",
+    "name": "Bitcoin",
+    "createdOn": "2008-01-03",
+    "chart": [
+      {
+        "date": "2018-01-01",
+        "price": 12556
+      },
+      {
+        "date": "2018-01-02",
+        "price": 15001
+      },
+      {
+        "date": "2018-01-03",
+        "price": 16300
+      }
+    ]
+  },
+
+  {
+    "id": 2,
+    "ticker": "ETH",
+    "name": "Ethereum",
+    "createdOn": "2012-01-23",
+    "chart": [
+      {
+        "date": "2018-01-01",
+        "price": 657
+      },
+      {
+        "date": "2018-01-02",
+        "price": 732
+      },
+      {
+        "date": "2018-01-03",
+        "price": 590
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "ticker": "DASH",
+    "name": "Dash",
+    "createdOn": "2014-01-14",
+    "chart": [
+      {
+        "date": "2018-01-01",
+        "price": 1501
+      },
+      {
+        "date": "2018-01-02",
+        "price": 1634
+      },
+      {
+        "date": "2018-01-03",
+        "price": 1490
+      }
+    ]
+  }
+]
