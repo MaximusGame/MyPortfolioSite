@@ -1,0 +1,34 @@
+[
+  {
+    "Scenarios": [
+      {
+        "ScenarioName": "BASE ASSAULT",
+        "ScenarioDescription": "Scenario where players may to capture the bases of opponent."
+      },
+      {
+        "ScenarioName": "CLASH",
+        "ScenarioDescription": "Scenario where players play in two commands and that command will have the victory which survivals."
+      },
+      {
+        "ScenarioName": "COMBAT",
+        "ScenarioDescription": "Description COMBAT"
+      },
+      {
+        "ScenarioName": "DOMINATION",
+        "ScenarioDescription": "Description DOMINATION"
+      },
+      {
+        "ScenarioName": "EXPLORATION",
+        "ScenarioDescription": "Description EXPLORATION"
+      },
+      {
+        "ScenarioName": "MIND CAPTURE",
+        "ScenarioDescription": "Description MIND CAPTURE"
+      },
+      {
+        "ScenarioName": "THE VIRUS ELIMINATION",
+        "ScenarioDescription": "Description THE VIRUS ELIMINATION"
+      }
+    ]
+  }
+]

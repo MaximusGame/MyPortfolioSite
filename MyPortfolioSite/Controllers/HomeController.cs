@@ -1,7 +1,9 @@
 ﻿using MyPortfolioSite.Context;
 using MyPortfolioSite.DataModel;
 using MyPortfolioSite.FolderForCryptoTest;
+using MyPortfolioSite.FolderForScenriosDownloaderTest;
 using MyPortfolioSite.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -16,7 +18,9 @@ namespace MyPortfolioSite.Controllers
     public class HomeController : Controller
     {
         private DB_Manager DB_Manager = new DB_Manager();
-        private CryptoModel CryptoModel = new CryptoModel();
+       // private CryptoModel CryptoModel = new CryptoModel();
+
+        private List<RootObject> CryptosList = new List<RootObject>();
 
         public ActionResult Index()
         {
@@ -28,6 +32,14 @@ namespace MyPortfolioSite.Controllers
             ViewBag.Message = "Key information";
 
             return View();
+        }
+
+        public FileResult GetFile()
+        {
+            string file_path = Server.MapPath("~/MyFiles/MyResume.pdf");
+            string file_type = "application/pdf";
+            string file_name = "Resume.pdf";
+            return File(file_path, file_type, file_name);
         }
 
         public ActionResult Contact()
@@ -225,21 +237,70 @@ namespace MyPortfolioSite.Controllers
         }
 
 
+        ///------------------------- Test view section
+
+        //ICUTech
         public ActionResult ICUTech_Test()
         {
             return View();
         }
 
+        //Scenarios Dowloader
+        public ActionResult ScenariosDownload()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetScenariosList(string ScenarioLanguage)
+        {
+            object jsonObject = null;
+
+            switch (ScenarioLanguage)
+            {
+                case "Eng":
+                    string ScenarioEng = System.IO.File.ReadAllText(Server.MapPath("~/FolderForScenriosDownloaderTest/Scenarios/Eng/ScenarioEng.json"));
+                    jsonObject = ScenariosContext.GetJSON(ScenarioEng);
+                    break;
+
+                case "Esp":
+                    string ScenarioEsp = System.IO.File.ReadAllText(Server.MapPath("~/FolderForScenriosDownloaderTest/Scenarios/Esp/ScenarioEsp.json"));
+                    jsonObject = ScenariosContext.GetJSON(ScenarioEsp);
+                    break;
+
+                default:
+                    jsonObject = new { ScenarioName = "Not Scenario Name", ScenariyDescription = "Not Scenario Description" };
+                    break;
+            }
+
+            return Json(jsonObject, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        // Crypto Currency
         public ActionResult Crypto(string CryptoName)
         {
+            CryptoModel.FillList(CryptosList);
+
             if (CryptoName == null)
             {
-                return View();
+                SelectionCryptoCurrency selectionCryptoCurrency = new SelectionCryptoCurrency
+                {
+                    CryptoCurrency = CryptosList
+
+                };
+                return View(selectionCryptoCurrency);
             }
             else
             {
-                var SeachCrypto = CryptoModel.Cryptos.Where(a => a.Name == CryptoName);
-                SelectionCryptoCurrency selectionCryptoCurrency = new SelectionCryptoCurrency();
+                var SeachCrypto = CryptosList.Where(a => a.Name == CryptoName);
+
+                SelectionCryptoCurrency selectionCryptoCurrency = new SelectionCryptoCurrency
+                {
+                    CryptoCurrency = CryptosList
+
+                };
 
                 foreach (RootObject i in SeachCrypto)
                 {
@@ -249,10 +310,12 @@ namespace MyPortfolioSite.Controllers
                 
             }
         }
+
         [HttpGet]
         public ActionResult GetSelectionCurrency(string CryptoName)
         {
-            var SeachCrypto = CryptoModel.Cryptos.Where(a => a.Name == CryptoName);
+            CryptoModel.FillList(CryptosList);
+            var SeachCrypto = CryptosList.Where(a => a.Name == CryptoName);
             RootObject rootObject = new RootObject();
 
             string[] DateForChart = new string[3];
@@ -276,5 +339,7 @@ namespace MyPortfolioSite.Controllers
             }
             return Json(new { rootObject.Id, rootObject.Ticker, rootObject.Name, rootObject.CreatedOn, DateForChart, PriceForChart }, JsonRequestBehavior.AllowGet);
         }
+
+       
     }
 }

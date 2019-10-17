@@ -8,14 +8,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title – ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <h2>@ViewBag.Title</h2>
-    <img src="~/Images/logo.png" alt="..." class="img-thumbnail" width="125" height="125" />
+    @*<img src="~/Images/logo.png" alt="..." class="img-thumbnail" width="125" height="125" />*@
+    <div div class="col text-left">
+        <a href="@Url.Action("GetFile", "Home")" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Download Resume in .pdf</a>
+    </div>
     <hr class="my-4">
+    
     <div class="row mx-md-n5">
         <div class="col px-md-5">
             <div class="p-3 border bg-light">
@@ -25,15 +30,15 @@
                 <p class="text-left font-weight-bolder">JSON, TCP/IP, Protocol Buffers, LINQ;</p>
                 <p class="text-left font-weight-bolder">Git, SVN;</p>
                 <p class="text-left font-weight-bolder">HTML, CSS, JS, jQuery, ajax;</p>
-                <p class="text-left font-weight-bolder">EntityFramework, SQL;</p>
+                <p class="text-left font-weight-bolder">EntityFramework, MS SQL database;</p>
             </div>
         </div>
         <div class="col px-md-5">
             <div class="p-3 border bg-light">
                 <h4 class="text-primary">Additional Experience</h4>
-                <p class="text-left font-weight-bolder">Unity(Windows/Android)</p>
-                <p class="text-left font-weight-bolder">Visual Studio (Windows Forms)</p>
-                <p class="text-left font-weight-bolder">Delphi(Windows Forms);</p>
+                <p class="text-left font-weight-bolder">Unity C# (Windows/Android)</p>
+                <p class="text-left font-weight-bolder">Visual Studio C# (Windows Forms)</p>
+                <p class="text-left font-weight-bolder">Delphi (Windows Forms);</p>
                 <h4 class="text-primary">Other skills</h4>
                 <p class="text-left font-weight-bolder">English : Pre-Intermediate;</p>
                 <h4 class="text-primary">Code examples</h4>
@@ -41,7 +46,7 @@
             </div>
         </div>
     </div>
-    
+
 </body>
 
 </html>

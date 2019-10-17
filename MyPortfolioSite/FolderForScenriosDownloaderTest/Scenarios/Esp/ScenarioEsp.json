@@ -1,0 +1,34 @@
+﻿[
+  {
+    "Scenarios": [
+      {
+        "ScenarioName": "ASALTO BASE",
+        "ScenarioDescription": "Escenario donde los jugadores pueden capturar las bases del oponente."
+      },
+      {
+        "ScenarioName": "CHOQUE",
+        "ScenarioDescription": "Escenario donde los jugadores juegan en dos comandos y ese comando tendrá la victoria que sobrevive."
+      },
+      {
+        "ScenarioName": "COMBATE",
+        "ScenarioDescription": "Description COMBATE"
+      },
+      {
+        "ScenarioName": "DOMINACIÓN",
+        "ScenarioDescription": "Description DOMINACIÓN"
+      },
+      {
+        "ScenarioName": "EXPLORACIÓN",
+        "ScenarioDescription": "Description DOMINACIÓN"
+      },
+      {
+        "ScenarioName": "CAPTURA MENTAL",
+        "ScenarioDescription": "Description CAPTURA MENTAL"
+      },
+      {
+        "ScenarioName": "LA ELIMINACIÓN DEL VIRUS",
+        "ScenarioDescription": "Description LA ELIMINACIÓN DEL VIRUS"
+      }
+    ]
+  }
+]

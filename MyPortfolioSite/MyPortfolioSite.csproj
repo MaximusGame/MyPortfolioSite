@@ -135,6 +135,7 @@
     <Compile Include="DataModel\People.cs" />
     <Compile Include="DataModel\Project.cs" />
     <Compile Include="FolderForCryptoTest\CryptoModel.cs" />
+    <Compile Include="FolderForScenriosDownloaderTest\ScenariosContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -151,10 +152,25 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\BASE_ASSAULT.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\CLASH.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\COMBAT.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\DOMINATION.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\EXPLORATION.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\MIND_CAPTURE.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\THE_VIRUS_ELIMINATION.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\ASALTO_BASE.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\CAPTURA_MENTAL.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\CHOQUE.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\COMBATE.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\DOMINACIÓN.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\EXPLORACIÓN.txt" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\LA_ELIMINACIÓN_DEL_VIRUS.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Animation.png" />
     <Content Include="Images\Arena.png" />
+    <Content Include="Images\down.png" />
     <Content Include="Images\fon.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\ScreechOfSteel.jpg" />
@@ -412,6 +428,9 @@
     <Content Include="node_modules\chart.js\LICENSE.md" />
     <Content Include="node_modules\chart.js\package.json" />
     <Content Include="node_modules\chart.js\README.md" />
+    <Content Include="MyFiles\MyResume.pdf" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Eng\ScenarioEng.json" />
+    <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\ScenarioEsp.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -476,6 +495,7 @@
     <Content Include="Views\Home\DeleteProject.cshtml" />
     <Content Include="Views\Home\ICUTech_Test.cshtml" />
     <Content Include="Views\Home\Crypto.cshtml" />
+    <Content Include="Views\Home\ScenariosDownload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
