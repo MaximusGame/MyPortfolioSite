@@ -50,7 +50,7 @@ namespace MyPortfolioSite.Models
         {
             if (people != null)
             {
-                DB_Contex.Peoples.Add(new People { Name = people.Name, Phone = people.Phone });
+                DB_Contex.Peoples.Add(new People { Name = people.Name, Phone = people.Phone, FotoName = people.FotoName});
                 DB_Contex.SaveChanges();
             }
         }
@@ -66,6 +66,14 @@ namespace MyPortfolioSite.Models
             People people = ReturnPeople(id);
             DB_Contex.Peoples.Remove(people);
             DB_Contex.SaveChanges();
+        }
+
+        public string ReturnFotoFilePeople(int id)
+        {
+            string Foto;
+            People people = ReturnPeople(id);
+            Foto = people.FotoName;
+            return Foto;
         }
 
         public List<Project> ReturnDB_Projects()
@@ -111,6 +119,19 @@ namespace MyPortfolioSite.Models
             Project project = ReturnProject(id);
             DB_Contex.Projects.Remove(project);
             DB_Contex.SaveChanges();
+        }
+
+        public string[] Imagas()
+        {
+            var r =  DB_Contex.Peoples.Where(t => t.FotoName != "");
+            string[] w = new string[r.Count()];
+            int counter = 0;
+            foreach (var i in r)
+            {
+                w[counter] += i.FotoName;
+                counter++;
+            }
+            return w;
         }
     }
 }

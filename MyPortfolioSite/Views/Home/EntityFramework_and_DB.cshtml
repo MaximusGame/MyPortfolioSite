@@ -2,29 +2,40 @@
 @model MyPortfolioSite.Models.Context_Model
 
 
-<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>EntityFramework_and_DB</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
     <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <style>
+        .foto {
+            height:auto;
+            max-height: 40px;
+            max-width: 40px;
+        }
+    </style>
 </head>
+
+
 
 <body>
 
     <div class="row mx-md-n5">
         <div class="col px-md-5">
             <br />
-            <div class="p-3 border bg-light">
+            <div class="p-3 border bg-light table-responsive">
                 <h4 class="text-center">People</h4>
-                <table class="table">
+                <table class="table" >
                     <tr>
+                        <th class="text-center">
+                            <a>Foto</a>
+                        </th>
                         <th>
                             <a>Name</a>
                         </th>
@@ -36,18 +47,23 @@
 
                     @foreach (var item in Model.Peoples_Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Phone)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "EditPeople", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "DeletePeople", new { id = item.Id })
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <div class="foto">
+                                <img src="~/Fotos/@item.FotoName" class="img-fluid" accept="image/*"/>
+                            </div>                            
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditPeople", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "DeletePeople", new { id = item.Id })
+                        </td>
+                    </tr>
                     }
 
                 </table>

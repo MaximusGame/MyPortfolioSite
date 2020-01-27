@@ -11,7 +11,7 @@ namespace MyPortfolioSite.Context
     {
         public DB_Contex() : base("DB_People")
         {
-
+      
         }
 
         public DbSet<People> Peoples { get; set; }

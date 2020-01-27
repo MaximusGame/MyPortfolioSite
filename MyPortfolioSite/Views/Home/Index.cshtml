@@ -1,86 +1,162 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    Layout = null;
 }
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link href="~/node_modules/swiper/dist/css/swiper.min.css" rel="stylesheet" />
+    @*<link href="~/node_modules/swiper/dist/css/swiper.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*<script src="~/Scripts/popper.min.js"></script>*@
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Stylses/Style.css" rel="stylesheet" />
+    @*<style>
+            /*body {
+                background-image: url('../../Images/fon.jpg');
+                font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                color: #000;
+                margin: 0;
+                padding: 0;
+            }*/
 
-    <style>
-        body {
-            background-image: url('../../Images/fon.jpg');
-            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            color: #000;
-            margin: 0;
-            padding: 0;
-        }
+            .swiper-container {
+                width: 100%;
+                padding-top: 10px;
+                padding-bottom: 50px;
+            }
 
-        .swiper-container {
-            width: 100%;
-            padding-top: 10px;
-            padding-bottom: 50px;
-        }
-
-        .swiper-slide {
-            background-position: center;
-            background-size: cover;
-            width: 450px;
-            height: 250px;
-        }
-         
-    </style>
+            .swiper-slide {
+                background-position: center;
+                background-size: cover;
+                width: 450px;
+                height: 250px;
+            }
+        </style>*@
 </head>
 <body>
-    <h2 class="text-center text-danger">Projects in which I participated</h2>
-    <!-- Swiper -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div>
-                    <img width="450" height="250" src="~/Images/Arena.png" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div>
-                    <img width="450" height="250" src="~/Images/TVout.png" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div>
-                    <img width="450" height="250" src="~/Images/ScreechOfSteel.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div>
-                    <img width="450" height="250" src="~/Images/Animation.png" />
-                </div>
-            </div>
+    <header>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="@Url.Action("PostGetRequest", "Home")">PostGetRequest</a></li>
+                <li><a href="@Url.Action("EntityFramework_and_DB", "Home")">EntityFramework_and_DB</a></li>
+                <li><a href="@Url.Action("Crypto", "Home")">Crypto</a></li>
+                <li><a href="@Url.Action("ScenariosDownload", "Home")">ScenariosDownload</a></li>
+            </ul>
+        </nav>
+        <ul class="sci">
+            <li>
+                <a href="#about">
+                    <img src="~/Images/about.png" />
+                </a>
+            </li>
+            <li>
+                <a href="#contact">
+                    <img src="~/Images/contact.png"/>
+                </a>
+            </li>
+        </ul>
+    </header>
+    <section class="section_1" id="about">
+        <contaner class="h100">
+            <div>
+                <div class="circle circle1" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="~/Images/me.jpeg" />
+                </div>
+                <h1 class="neon" data-text="Site make by ASP.Net MVC">Site make by ASP.Net MVC</h1>
+                <div class="contentBox">
+                    <h2 data-aos="fade-up" data-aos-duration="2000" data-aos-delay="150"> I am Full-Stack (.NET) Developer</h2>
+                    <p>
+                        C#, .NET, ASP.NET MVC, ASP.NET Core MVC;<br />
+                        NET 4.5.x/4.7.x;<br />
+                        JSON, TCP/IP, Protocol Buffers, LINQ;<br />
+                        HTML, CSS, JS, jQuery, ajax;<br />
+                        OOP and design/architectural patterns;<br />
+                        EntityFramework (Code First), Dapper, MS SQL, SQLite;<br />
+                        Version control systems: Git, SVN;
+                    </pdata-aos-duration="2000">
+                </div>
 
-    <script src="~/node_modules/swiper/dist/js/swiper.min.js"></script>
-    <!-- Initialize Swiper -->
+            </div>
+        </contaner>
+    </section>
+    <section class="section_2" id="contact">
+        <contaner class="h100">
+            <div>
+                <p class="vert">Test</p>
+            </div>
+        </contaner>
+    </section>
+
+
+    @*<h2 class="text-center text-danger">Projects in which I participated</h2>
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div>
+                        <img width="450" height="250" src="~/Images/Arena.png" />
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div>
+                        <img width="450" height="250" src="~/Images/TVout.png" />
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div>
+                        <img width="450" height="250" src="~/Images/ScreechOfSteel.jpg" />
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div>
+                        <img width="450" height="250" src="~/Images/Animation.png" />
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <script src="~/node_modules/swiper/dist/js/swiper.min.js"></script>
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper('.swiper-container', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 5,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            });
+        </script>*@
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        var swiper = new Swiper('.swiper-container', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            coverflowEffect: {
-                rotate: 50,
-                stretch: 0,
-                depth: 100,
-                modifier: 5,
-                slideShadows: true,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-            },
-        });
+        $(document).ready(function () {
+            $('.menu-toggle').click(function () {
+                $('.menu-toggle').toggleClass('active');
+                $('nav').toggleClass('active');
+            })
+        })
     </script>
-
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>

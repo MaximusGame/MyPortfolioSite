@@ -166,13 +166,20 @@
     <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\DOMINACIÓN.txt" />
     <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\EXPLORACIÓN.txt" />
     <Content Include="FolderForScenriosDownloaderTest\Scenarios\Esp\LA_ELIMINACIÓN_DEL_VIRUS.txt" />
+    <Content Include="Fotos\avatar.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\about.png" />
     <Content Include="Images\Animation.png" />
     <Content Include="Images\Arena.png" />
+    <Content Include="Images\about_background.jpg" />
+    <Content Include="Images\contact.png" />
+    <Content Include="Images\contacts.png" />
+    <Content Include="Images\contact_background.jpg" />
     <Content Include="Images\down.png" />
     <Content Include="Images\fon.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\me.jpeg" />
     <Content Include="Images\ScreechOfSteel.jpg" />
     <Content Include="Images\TVout.png" />
     <Content Include="node_modules\chart.js\dist\Chart.bundle.js" />
@@ -459,6 +466,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Stylses\Style.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

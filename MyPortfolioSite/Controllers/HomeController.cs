@@ -6,10 +6,13 @@ using MyPortfolioSite.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using static MyPortfolioSite.Models.DB_Manager;
 
 namespace MyPortfolioSite.Controllers
@@ -18,8 +21,8 @@ namespace MyPortfolioSite.Controllers
     public class HomeController : Controller
     {
         private DB_Manager DB_Manager = new DB_Manager();
-       // private CryptoModel CryptoModel = new CryptoModel();
-
+        // private CryptoModel CryptoModel = new CryptoModel();
+        
         private List<RootObject> CryptosList = new List<RootObject>();
 
         public ActionResult Index()
@@ -40,6 +43,25 @@ namespace MyPortfolioSite.Controllers
             string file_type = "application/pdf";
             string file_name = "Resume.pdf";
             return File(file_path, file_type, file_name);
+        }
+
+        public FileResult GetImage(string ImegeName)
+        {
+            if (System.IO.File.Exists(Server.MapPath("~/Fotos/" + ImegeName)))
+            {
+                string file_path = Server.MapPath("~/Fotos/" + ImegeName);
+                string file_type = "image/png";
+                string file_name = ImegeName;
+                return File(file_path, file_type, file_name);
+            }
+            else
+            {
+                string file_path = Server.MapPath("~/Fotos/avatar.png");
+                string file_type = "image/png";
+                string file_name = "avatar.png";
+                return File(file_path, file_type, file_name);
+            }
+           
         }
 
         public ActionResult Contact()
@@ -97,8 +119,33 @@ namespace MyPortfolioSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateNewPeople([Bind(Include = "Id,Name,Phone")] People people)
+        public ActionResult CreateNewPeople([Bind(Include = "Id,Name,Phone")] People people, HttpPostedFileBase upload)
         {
+            
+            if (upload != null)
+            {
+                string fileName = Path.GetFileName(upload.FileName);
+                string ext = Path.GetExtension(upload.FileName);
+
+                if (/*ext.ToLower() != ".jpg" &&*/ ext.ToLower() != ".png" /*&& ext.ToLower() != ".jpeg"*/)
+                {
+                    people.FotoName = "avatar.png";
+                }
+                else
+                {
+                    upload.SaveAs(Server.MapPath(Path.Combine("~/Fotos/", fileName)));
+                    people.FotoName = fileName; 
+                }
+                // сохраняем файл в папку Files в проекте
+                //string FotoFolderPath = Server.MapPath("~/Fotos/");
+                //upload.SaveAs(Server.MapPath("~/Fotos/" + fileName));
+               
+            }
+            else
+            {
+                people.FotoName = "avatar.png";
+            }
+            
             DB_Manager.AddNewPeople(people);
             return RedirectToAction("EntityFramework_and_DB");
         }
@@ -149,6 +196,13 @@ namespace MyPortfolioSite.Controllers
         [HttpPost]
         public ActionResult DeletePeople(int id)
         {
+            string foto = DB_Manager.ReturnFotoFilePeople(id);
+
+            if ("avatar.png" != foto)
+            {
+                System.IO.File.Delete(Server.MapPath("~/Fotos/" + DB_Manager.ReturnFotoFilePeople(id)));
+            }
+
             DB_Manager.DeletePeople(id);
             return RedirectToAction("EntityFramework_and_DB");
         }
@@ -340,6 +394,32 @@ namespace MyPortfolioSite.Controllers
             return Json(new { rootObject.Id, rootObject.Ticker, rootObject.Name, rootObject.CreatedOn, DateForChart, PriceForChart }, JsonRequestBehavior.AllowGet);
         }
 
-       
+        [HttpPost]
+        public ActionResult GetListImageName(string Image)
+        {
+            if (Image == "all")
+            {
+                string[] a = DB_Manager.Imagas();
+                return Json(a);
+            }
+            else
+            {
+                if (Image == "no")
+                {
+                    return Json("File not found");
+                }
+                else
+                {
+                    return RedirectToAction("GetImage", new RouteValueDictionary(new { ImegeName = Image }));
+                }
+            }
+            
+            
+        }
+
+        public ActionResult ErrorMessage(string Mes)
+        {
+            return Json(Mes);
+        }
     }
 }
