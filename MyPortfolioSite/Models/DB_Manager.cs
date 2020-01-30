@@ -1,11 +1,9 @@
 ﻿using MyPortfolioSite.Context;
 using MyPortfolioSite.DataModel;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+
 
 namespace MyPortfolioSite.Models
 {
@@ -23,15 +21,16 @@ namespace MyPortfolioSite.Models
 
     public class DB_Manager: IContext
     {
-        private DB_Contex DB_Contex;
+        private DB_Contex _DB_Contex;
         public static int ProjectID { get; set; }
 
-        public DB_Manager()
+        public DB_Manager(DB_Contex DB_Contex)
         {
+            //_DB_Contex = DB_Contex;
             if (DB_Contex == null)
             {
-                DB_Contex = new DB_Contex();
-            }            
+                _DB_Contex = new DB_Contex();
+            }
         }
 
 
@@ -43,29 +42,29 @@ namespace MyPortfolioSite.Models
 
         public List<People> ReturneDB_People()
         {
-            return DB_Contex.Peoples.ToList();
+            return _DB_Contex.Peoples.ToList();
         }
 
         public void AddNewPeople(People people)
         {
             if (people != null)
             {
-                DB_Contex.Peoples.Add(new People { Name = people.Name, Phone = people.Phone, FotoName = people.FotoName});
-                DB_Contex.SaveChanges();
+                _DB_Contex.Peoples.Add(new People { Name = people.Name, Phone = people.Phone, FotoName = people.FotoName});
+                _DB_Contex.SaveChanges();
             }
         }
 
         public void EditePeople(People people)
         {
-            DB_Contex.Entry(people).State = EntityState.Modified;
-            DB_Contex.SaveChanges();
+            _DB_Contex.Entry(people).State = EntityState.Modified;
+            _DB_Contex.SaveChanges();
         }
 
         public void DeletePeople(int id)
         {
             People people = ReturnPeople(id);
-            DB_Contex.Peoples.Remove(people);
-            DB_Contex.SaveChanges();
+            _DB_Contex.Peoples.Remove(people);
+            _DB_Contex.SaveChanges();
         }
 
         public string ReturnFotoFilePeople(int id)
@@ -78,20 +77,20 @@ namespace MyPortfolioSite.Models
 
         public List<Project> ReturnDB_Projects()
         {
-            return DB_Contex.Projects.ToList();
+            return _DB_Contex.Projects.ToList();
         }
 
         public People ReturnPeople( int? id)
         {
-           return DB_Contex.Peoples.Find(id);
+           return _DB_Contex.Peoples.Find(id);
         }
 
         public void AddNewProject(Project project)
         {
             if (project != null)
             {
-                DB_Contex.Projects.Add(new Project { Name = project.Name, Price = project.Price });
-                DB_Contex.SaveChanges();
+                _DB_Contex.Projects.Add(new Project { Name = project.Name, Price = project.Price });
+                _DB_Contex.SaveChanges();
             }
         }
 
@@ -100,30 +99,30 @@ namespace MyPortfolioSite.Models
             Project project = ReturnProject(ProjectID);
             People people = ReturnPeople(PeopleID);
             people.Projects.Add(project);
-            DB_Contex.SaveChanges();
+            _DB_Contex.SaveChanges();
         }
 
         public Project ReturnProject(int? id)
         {
-            return DB_Contex.Projects.Find(id);
+            return _DB_Contex.Projects.Find(id);
         }
 
         public void EditeProject(Project project)
         {
-            DB_Contex.Entry(project).State = EntityState.Modified;
-            DB_Contex.SaveChanges();
+            _DB_Contex.Entry(project).State = EntityState.Modified;
+            _DB_Contex.SaveChanges();
         }
 
         public void DeleteProject(int id)
         {
             Project project = ReturnProject(id);
-            DB_Contex.Projects.Remove(project);
-            DB_Contex.SaveChanges();
+            _DB_Contex.Projects.Remove(project);
+            _DB_Contex.SaveChanges();
         }
 
         public string[] Imagas()
         {
-            var r =  DB_Contex.Peoples.Where(t => t.FotoName != "");
+            var r =  _DB_Contex.Peoples.Where(t => t.FotoName != "");
             string[] w = new string[r.Count()];
             int counter = 0;
             foreach (var i in r)

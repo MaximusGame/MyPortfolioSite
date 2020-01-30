@@ -1,9 +1,6 @@
 ﻿using MyPortfolioSite.DataModel;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
+using System.Data.Entity.Infrastructure;
 
 namespace MyPortfolioSite.Context
 {
@@ -11,8 +8,8 @@ namespace MyPortfolioSite.Context
     {
         public DB_Contex() : base("DB_People")
         {
-      
-        }
+
+        }       
 
         public DbSet<People> Peoples { get; set; }
         public DbSet<Project> Projects { get; set; }

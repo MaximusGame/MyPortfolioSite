@@ -9,6 +9,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -20,9 +21,11 @@ namespace MyPortfolioSite.Controllers
  
     public class HomeController : Controller
     {
-        private DB_Manager DB_Manager = new DB_Manager();
-        // private CryptoModel CryptoModel = new CryptoModel();
         
+       // private static DB_Contex db = new DB_Contex();
+
+        private DB_Manager DB_Manager = new DB_Manager(null);
+
         private List<RootObject> CryptosList = new List<RootObject>();
 
         public ActionResult Index()
@@ -30,12 +33,47 @@ namespace MyPortfolioSite.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public string SendMail(string user_name, string user_email, string text_comment)
         {
-            ViewBag.Message = "Key information";
+            try
+            {
+                MailMessage objMailMessage = new MailMessage("user@mail.com", "maximuskavun@gmail.com")
+                {              
+                   Subject = "Message from my Site",
+                   IsBodyHtml = true,
+                   Body = text_comment + " (From: " + user_name + "  E-Mail: " + user_email + ")"
+                };
+                SmtpClient objsmtp = new SmtpClient
+                {
+                   EnableSsl = true // this statement is required in case you are planning to use Gmail account/Google apps account
+                };
+                objsmtp.Send(objMailMessage);
+                return "Your message send me successful.";
+            }
+            catch
+            {
+                return "";
+            }
+            
+        }
 
+        public ActionResult REST_API()
+        {
             return View();
         }
+
+        public ActionResult DataBase()
+        {
+            var Model = new Context_Model()
+            {
+                Peoples_Model = DB_Manager.ReturneDB_People(),
+                Projects_Model = DB_Manager.ReturnDB_Projects()
+            };
+
+            return View(Model);
+        }
+
+
 
         public FileResult GetFile()
         {
@@ -62,19 +100,7 @@ namespace MyPortfolioSite.Controllers
                 return File(file_path, file_type, file_name);
             }
            
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "We can contact me:";
-
-            return View();
-        }
-
-        public ActionResult PostGetRequest()
-        {
-            return View();
-        }
+        }       
 
         public string GetPriceCrypto (string CryptoName)
         {
@@ -91,7 +117,7 @@ namespace MyPortfolioSite.Controllers
                 return RedirectToAction("EntityFramework_and_DB");
             }
             else
-            return RedirectToAction("EntityFramework_and_DB");
+                return RedirectToAction("EntityFramework_and_DB");
         }
 
         [HttpPost]
@@ -100,18 +126,9 @@ namespace MyPortfolioSite.Controllers
             ProjectID = ConvertProjectID(id);
         }
 
-        public ActionResult EntityFramework_and_DB()
-        {
-            var Model = new Context_Model()
-            {
-                Peoples_Model = DB_Manager.ReturneDB_People(),
-                Projects_Model = DB_Manager.ReturnDB_Projects()
-            };
+        
 
-            return View(Model);
-        }
 
-    
         public ActionResult CreatePeople()
         {
             ViewBag.Message = "CreatePeople";
@@ -121,7 +138,7 @@ namespace MyPortfolioSite.Controllers
         [HttpPost]
         public ActionResult CreateNewPeople([Bind(Include = "Id,Name,Phone")] People people, HttpPostedFileBase upload)
         {
-            
+
             if (upload != null)
             {
                 string fileName = Path.GetFileName(upload.FileName);
@@ -134,18 +151,18 @@ namespace MyPortfolioSite.Controllers
                 else
                 {
                     upload.SaveAs(Server.MapPath(Path.Combine("~/Fotos/", fileName)));
-                    people.FotoName = fileName; 
+                    people.FotoName = fileName;
                 }
                 // сохраняем файл в папку Files в проекте
                 //string FotoFolderPath = Server.MapPath("~/Fotos/");
                 //upload.SaveAs(Server.MapPath("~/Fotos/" + fileName));
-               
+
             }
             else
             {
                 people.FotoName = "avatar.png";
             }
-            
+
             DB_Manager.AddNewPeople(people);
             return RedirectToAction("EntityFramework_and_DB");
         }
@@ -219,7 +236,7 @@ namespace MyPortfolioSite.Controllers
             DB_Manager.AddNewProject(project);
             return RedirectToAction("EntityFramework_and_DB");
         }
-               
+
         public ActionResult EditProject(int? id)
         {
             if (id == null)
@@ -291,13 +308,7 @@ namespace MyPortfolioSite.Controllers
         }
 
 
-        ///------------------------- Test view section
 
-        //ICUTech
-        public ActionResult ICUTech_Test()
-        {
-            return View();
-        }
 
         //Scenarios Dowloader
         public ActionResult ScenariosDownload()
@@ -413,13 +424,23 @@ namespace MyPortfolioSite.Controllers
                     return RedirectToAction("GetImage", new RouteValueDictionary(new { ImegeName = Image }));
                 }
             }
-            
-            
+
+
         }
 
         public ActionResult ErrorMessage(string Mes)
         {
             return Json(Mes);
         }
+
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
