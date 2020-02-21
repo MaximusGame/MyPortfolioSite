@@ -340,7 +340,7 @@ hi.neon {
     }
 
     .rest h3 {
-        font-size: 1.7em;
+        font-size: 1.6em;
         color: #ffffff;
         font-family: 'Signika', sans-serif;
         margin-top: 15px;
@@ -355,35 +355,81 @@ hi.neon {
         margin-left: 10px;
     }
 
-        @media (max-width: 992px) {
-            nav {
-        right: -250%;
-    }
+/* Data BaseView */
+.section_3 {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-image: url('../Images/about_background.jpg');
+    background-size: cover;
+}
 
-        nav.active ul {
-            display: block;
+ .section_3 .tablebag {
+    position: relative;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-top: 50px;
+ }
+
+.card-body h5 {
+   color: #b4b1b1;
+}
+
+.section_3 .row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.foto {
+    height: auto;
+    max-height: 40px;
+    max-width: 40px;
+}
+
+
+.btnAddPerson {
+    position: absolute;
+    right: 40px;
+    top: 20px;
+}
+
+.btnAddProject {
+    position: absolute;
+    right: 40px;
+    top: 20px;
+}
+
+
+@media (max-width: 992px) {
+    nav {
+            right: -250%;
         }
 
-    .circle.circle1 {
-        width: 150px;
-        height: 150px;
-        float: none;
-        border-radius: 50%;
-        margin: 5px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
+            nav.active ul {
+                display: block;
+            }
 
-    .neon {
-        font-size: 1.5em;
-    }
-    .section_1 h2 {
-        font-size: 1.5rem;
-    }
+        .circle.circle1 {
+            width: 150px;
+            height: 150px;
+            float: none;
+            border-radius: 50%;
+            margin: 5px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .section_1 p {
-        font-size: 1.2rem;
+        .neon {
+            font-size: 1.5em;
+        }
+
+        .section_1 h2 {
+            font-size: 1.5rem;
+        }
+
+        .section_1 p {
+            font-size: 1.2rem;
+        }
     }
-}
 

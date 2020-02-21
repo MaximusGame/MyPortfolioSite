@@ -134,20 +134,23 @@
     <Compile Include="Context\DB_Contex.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="DataModel\People.cs" />
     <Compile Include="DataModel\Project.cs" />
     <Compile Include="FolderForCryptoTest\CryptoModel.cs" />
     <Compile Include="FolderForScenriosDownloaderTest\ScenariosContext.cs" />
+    <Compile Include="Folder_ICUTech_test\Request_ICUTech.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DB_Manager.cs" />
     <Compile Include="Models\IContext.cs" />
     <Compile Include="Models\IPeopleRepository.cs" />
+    <Compile Include="Models\IProjectRepository.cs" />
     <Compile Include="Models\PeopleManager.cs" />
-    <Compile Include="Models\GetPeopleById_Query.cs" />
+    <Compile Include="Models\DataBaseWork.cs" />
+    <Compile Include="Models\ProjectManager.cs" />
     <Compile Include="Models\RequestCrypto.cs" />
-    <Compile Include="MyScripts\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,11 +187,9 @@
     <Content Include="Images\Arena.png" />
     <Content Include="Images\about_background.jpg" />
     <Content Include="Images\contact.png" />
-    <Content Include="Images\contacts.png" />
     <Content Include="Images\contact_background.jpg" />
     <Content Include="Images\down.png" />
     <Content Include="Images\fon.jpg" />
-    <Content Include="Images\logo.png" />
     <Content Include="Images\me.jpeg" />
     <Content Include="Images\ScreechOfSteel.jpg" />
     <Content Include="Images\skype.png" />
@@ -577,9 +578,13 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\DataPersonTable.cshtml" />
+    <Content Include="Views\Home\ICUTech_test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Person\" />
+    <Folder Include="Views\Project\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

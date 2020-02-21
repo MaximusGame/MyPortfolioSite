@@ -1,9 +1,11 @@
 ﻿using MyPortfolioSite.Context;
 using MyPortfolioSite.DataModel;
+using MyPortfolioSite.Folder_ICUTech_test;
 using MyPortfolioSite.FolderForCryptoTest;
 using MyPortfolioSite.FolderForScenriosDownloaderTest;
 using MyPortfolioSite.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -14,18 +16,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using static MyPortfolioSite.Models.DB_Manager;
 
 namespace MyPortfolioSite.Controllers
 {
- 
+
     public class HomeController : Controller
     {
-        
-       // private static DB_Contex db = new DB_Contex();
-
-        private DB_Manager DB_Manager = new DB_Manager(null);
-
+        private DB_Contex db = new DB_Contex();
+        public static int ProjectID { get; set; }
         private List<RootObject> CryptosList = new List<RootObject>();
 
         public ActionResult Index()
@@ -62,17 +60,123 @@ namespace MyPortfolioSite.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Data Base View and requests
+        /// </summary>
+        /// <returns></returns>
         public ActionResult DataBase()
         {
             var Model = new Context_Model()
             {
-                Peoples_Model = DB_Manager.ReturneDB_People(),
-                Projects_Model = DB_Manager.ReturnDB_Projects()
+                Peoples_Model = db.Peoples.ToList(),
+                Projects_Model = db.Projects.ToList()
             };
 
             return View(Model);
         }
 
+        public ActionResult TableData()
+        {
+            var Model = new Context_Model()
+            {
+                Peoples_Model = db.Peoples.ToList(),
+                Projects_Model = db.Projects.ToList()
+            };
+            return PartialView("DataPersonTable", Model);
+        }
+
+        //public ActionResult CreatePeople()
+        //{
+        //    ViewBag.Message = "CreatePeople";
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public async Task<ActionResult> CreateNewPeople([Bind(Include = "Id,Name,Phone")] People people, HttpPostedFileBase upload)
+        //{
+        //    if (people != null)
+        //    {
+        //        if (upload != null)
+        //        {
+        //            string fileName = people.Id.ToString() + "_" + Path.GetFileName(upload.FileName);
+        //            string ext = Path.GetExtension(upload.FileName);
+
+        //            if ( ext.ToLower() == ".png")
+        //            {
+        //                upload.SaveAs(Server.MapPath(Path.Combine("~/Fotos/", fileName)));
+        //                people.FotoName = fileName;
+        //            }
+        //        }
+
+        //        IPeopleRepository repo = new PeopleManager(db);
+        //        await repo.CreatePeople(people);
+        //    }
+
+        //    return RedirectToAction("DataBase");
+        //}
+
+
+        public ActionResult EditPeople(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            People people = db.Peoples.Find(id);
+
+            if (people == null)
+            {
+                return HttpNotFound();
+            }
+            return View(people);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditPeople([Bind(Include = "Id,Name,Phone")] People people)
+        {
+            if (ModelState.IsValid)
+            {
+                IPeopleRepository repo = new PeopleManager(db);
+                bool e = await repo.EditPeople(people, people.Id);
+                if (e == false)
+                {
+                    return View(people);
+                }
+                return RedirectToAction("DataBase");
+            }
+            return View(people);
+        }
+
+        //public ActionResult DeletePeople(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    People people = db.Peoples.Find(id);
+
+        //    if (people == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(people);
+        //}
+
+        //[HttpPost]
+        //public async Task<ActionResult> DeletePeople(int id)
+        //{
+        //    IPeopleRepository repo = new PeopleManager(db);
+        //    bool e = await repo.DeletePeople(id);
+
+        //    if (e == false)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    return RedirectToAction("DataBase");
+        //}
 
 
         public FileResult GetFile()
@@ -113,128 +217,34 @@ namespace MyPortfolioSite.Controllers
         {
             if (ProjectID != 0)
             {
-                DB_Manager.PeopleInProject(People_ID);
-                return RedirectToAction("EntityFramework_and_DB");
+                Project project = db.Projects.Find(ProjectID);
+                People people = db.Peoples.Find(People_ID);
+                people.Projects.Add(project);
+                db.SaveChanges();
+                return RedirectToAction("DataBase");
             }
             else
-                return RedirectToAction("EntityFramework_and_DB");
+                return RedirectToAction("DataBase");
         }
 
         [HttpPost]
         public void AddProjectId(string id)
         {
-            ProjectID = ConvertProjectID(id);
+            ProjectID = int.Parse(id);
         }
-
-        
-
-
-        public ActionResult CreatePeople()
-        {
-            ViewBag.Message = "CreatePeople";
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateNewPeople([Bind(Include = "Id,Name,Phone")] People people, HttpPostedFileBase upload)
-        {
-
-            if (upload != null)
-            {
-                string fileName = Path.GetFileName(upload.FileName);
-                string ext = Path.GetExtension(upload.FileName);
-
-                if (/*ext.ToLower() != ".jpg" &&*/ ext.ToLower() != ".png" /*&& ext.ToLower() != ".jpeg"*/)
-                {
-                    people.FotoName = "avatar.png";
-                }
-                else
-                {
-                    upload.SaveAs(Server.MapPath(Path.Combine("~/Fotos/", fileName)));
-                    people.FotoName = fileName;
-                }
-                // сохраняем файл в папку Files в проекте
-                //string FotoFolderPath = Server.MapPath("~/Fotos/");
-                //upload.SaveAs(Server.MapPath("~/Fotos/" + fileName));
-
-            }
-            else
-            {
-                people.FotoName = "avatar.png";
-            }
-
-            DB_Manager.AddNewPeople(people);
-            return RedirectToAction("EntityFramework_and_DB");
-        }
-
-        public ActionResult EditPeople(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            People people = DB_Manager.ReturnPeople(id);
-
-            if (people == null)
-            {
-                return HttpNotFound();
-            }
-            return View(people);
-        }
-
-        [HttpPost]
-        public ActionResult EditPeople([Bind(Include = "Id,Name,Phone")] People people)
-        {
-            if (ModelState.IsValid)
-            {
-                DB_Manager.EditePeople(people);
-                return RedirectToAction("EntityFramework_and_DB");
-            }
-            return View(people);
-        }
-
-        public ActionResult DeletePeople(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            People people = DB_Manager.ReturnPeople(id);
-
-            if (people == null)
-            {
-                return HttpNotFound();
-            }
-            return View(people);
-        }
-
-        [HttpPost]
-        public ActionResult DeletePeople(int id)
-        {
-            string foto = DB_Manager.ReturnFotoFilePeople(id);
-
-            if ("avatar.png" != foto)
-            {
-                System.IO.File.Delete(Server.MapPath("~/Fotos/" + DB_Manager.ReturnFotoFilePeople(id)));
-            }
-
-            DB_Manager.DeletePeople(id);
-            return RedirectToAction("EntityFramework_and_DB");
-        }
-
-
+               
+            
         public ActionResult CreateProject()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateNewProject([Bind(Include = "Id,Name,Price")] Project project)
+        public async Task<ActionResult> CreateNewProject([Bind(Include = "Id,Name,Price")] Project project)
         {
-            DB_Manager.AddNewProject(project);
-            return RedirectToAction("EntityFramework_and_DB");
+            IProjectRepository repo = new ProjectManager(db);
+            int CreatePeopleId = await repo.CreateProject(project);
+            return RedirectToAction("DataBase");
         }
 
         public ActionResult EditProject(int? id)
@@ -244,7 +254,7 @@ namespace MyPortfolioSite.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Project project = DB_Manager.ReturnProject(id);
+            Project project = db.Projects.Find(id); ;
 
             if (project == null)
             {
@@ -254,38 +264,41 @@ namespace MyPortfolioSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditProject([Bind(Include = "Id,Name,Price")] Project project)
+        public async Task<ActionResult> EditProject([Bind(Include = "Id,Name,Price")] Project project, int id)
         {
             if (ModelState.IsValid)
             {
-                DB_Manager.EditeProject(project);
-                return RedirectToAction("EntityFramework_and_DB");
+                IProjectRepository repo = new ProjectManager(db);
+                await repo.EditProject(project, id);
+                return RedirectToAction("DataBase");
             }
             return View(project);
         }
 
-        public ActionResult DeleteProject(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public ActionResult DeleteProject(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            Project project = DB_Manager.ReturnProject(id);
+        //    Project project = null; // DB_Manager.ReturnProject(id);
+        //    //IProjectRepository repo = new ProjectManager(db);
+        //    //bool e = await repo.DeleteProject(id);
 
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
-            return View(project);
-        }
+        //    if (project == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(project);
+        //}
 
-        [HttpPost]
-        public ActionResult DeleteProject(int id)
-        {
-            DB_Manager.DeleteProject(id);
-            return RedirectToAction("EntityFramework_and_DB");
-        }
+        //[HttpPost]
+        //public ActionResult DeleteProject(int id)
+        //{
+        //    //DB_Manager.DeleteProject(id);
+        //    return RedirectToAction("DataBase");
+        //}
 
         public ActionResult AddProjectToPeople(int? id)
         {
@@ -296,8 +309,8 @@ namespace MyPortfolioSite.Controllers
 
             ModelForAddProjectToPeople modelForAddProject = new ModelForAddProjectToPeople
             {
-                People = DB_Manager.ReturnPeople(id),
-                Projects_Model = DB_Manager.ReturnDB_Projects()
+                People = db.Peoples.Find(id), // DB_Manager.ReturnPeople(id),
+                Projects_Model = db.Projects.ToList(), // DB_Manager.ReturnDB_Projects()
             };
 
             if (modelForAddProject.People == null)
@@ -410,7 +423,7 @@ namespace MyPortfolioSite.Controllers
         {
             if (Image == "all")
             {
-                string[] a = DB_Manager.Imagas();
+                string[] a = {"","","" }; // DB_Manager.Imagas();
                 return Json(a);
             }
             else
@@ -433,14 +446,31 @@ namespace MyPortfolioSite.Controllers
             return Json(Mes);
         }
 
+        public ActionResult ICUTech_test()
+        {
+            return View();
+        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        [HttpPost]
+        public ActionResult ICUTech_Login([Bind(Include = "Name,Password")] User user)
+        {
+            if (user != null)
+            {
+               Request_ICUTech.User_Name = user.Name;
+               Request_ICUTech.User_Password = user.Password;
+            }
+            
+            return Json( Request_ICUTech.CallWebService(), JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
     }
 }

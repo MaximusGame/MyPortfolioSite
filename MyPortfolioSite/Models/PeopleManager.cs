@@ -15,20 +15,26 @@ namespace MyPortfolioSite.Models
 
         Task<int> IPeopleRepository.CreatePeople(People people)
         {
-            CreatePeaple_Query createPeaple_Query = new CreatePeaple_Query(_db);
-            return createPeaple_Query.ExecuteAsync(people);
+            PeopleFromRepository dataBase = new PeopleFromRepository(_db);
+            return dataBase.AddPeopleInDB(people);
         }
 
         Task<bool> IPeopleRepository.DeletePeople(int? Id)
         {
-            DeletePeaple_Query deletePeaple_Query = new DeletePeaple_Query(_db);
-            return deletePeaple_Query.ExecuteAsync(Id);
+            PeopleFromRepository dataBase = new PeopleFromRepository(_db);
+            return dataBase.DeletePeople(Id);
+        }
+
+        Task<bool> IPeopleRepository.EditPeople(People people, int? Id)
+        {
+            PeopleFromRepository dataBase = new PeopleFromRepository(_db);
+            return dataBase.EditPeople(people, Id);
         }
 
         Task<People> IPeopleRepository.GetPeople(int? Id)
         {
-            GetPeopleById_Query GetPeopleById_Query = new GetPeopleById_Query(_db);
-            return GetPeopleById_Query.ExecuteAsync(Id);
+            PeopleFromRepository dataBase = new PeopleFromRepository(_db);
+            return dataBase.GetPeople(Id);
         }
     }
 }

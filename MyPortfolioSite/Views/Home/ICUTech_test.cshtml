@@ -1,0 +1,178 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>ICUTech_test</title>
+    <style>
+        .h100 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .section_main {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #808080;
+            background-size: cover;
+            padding: 70px 0;
+        }
+        .card {
+            width: 25rem;
+            align-content: center;
+            margin: auto;
+        }
+        .alertMsg {
+            display: none;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%,0);
+            top: 60%;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">LOGO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mx-auto order-0" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="section_main" id="sec1">
+        <contaner class="h100">
+            <div class="alert alert-success alertMsg" role="alert" id="successMsg">
+                Data received success
+            </div>
+            <div class="alert alert-danger alertMsg" role="alert" id="errorMsg">
+                User not found
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row clearfix">
+                        <div class="offset-sm-2 col-sm-8">
+                            <form id="Login_table">
+                                <div class="form-group">
+                                    <label>Username:</label>
+                                    <input id="user_name" type="text" name="Name" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Password:</label>
+                                    <input id="user_password" type="text" name="Password" class="form-control" />
+                                </div>
+                                <div class="form-group text-center">
+                                    <button id="btn_submit" class="btn btn-primary btn-sm">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <span id="EntityInfo">
+
+                </span>
+            </div>
+        </contaner>
+    </section>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btn_submit').click(function () {
+                var user_name = $('#user_name').val();
+                var user_password = $('#user_password').val();
+                event.preventDefault();
+                if (user_name == "") {
+                    alert("Enter name");
+                    return;
+                }
+                if (user_password == "") {
+                    alert("Enter password");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/Home/ICUTech_Login",
+                    type: "post",
+                    dataType: "text",
+                    data: {
+                        Name: user_name,
+                        Password: user_password },
+                    success: function (data) {                        
+                        var obj = JSON.parse(data);
+                        AddEntityInfo(obj);
+                        document.getElementById("sec1").style.backgroundColor = obj.color;
+                        
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            });
+        });
+
+        function AddEntityInfo(CurerencyData) {
+
+            $('#EntityInfo').html('');
+
+            if (CurerencyData.EntityInfo !== null) {
+                var s = 'EntityId: ' + CurerencyData.EntityInfo.EntityId;
+                s += '<br>FirstName: ' + CurerencyData.EntityInfo.FirstName;
+                s += '<br>LastName: ' + CurerencyData.EntityInfo.LastName;
+                s += '<br>Company: ' + CurerencyData.EntityInfo.Company;
+                s += '<br>Address: ' + CurerencyData.EntityInfo.Address;
+                s += '<br>City: ' + CurerencyData.EntityInfo.City;
+                s += '<br>Country: ' + CurerencyData.EntityInfo.Country;
+                s += '<br>Zip: ' + CurerencyData.EntityInfo.Zip;
+                s += '<br>Phone: ' + CurerencyData.EntityInfo.Phone;
+                s += '<br>Mobile: ' + CurerencyData.EntityInfo.Mobile;
+                s += '<br>Email: ' + CurerencyData.EntityInfo.Email;
+                s += '<br>EmailConfirm: ' + CurerencyData.EntityInfo.EmailConfirm;
+                s += '<br>MobileConfirm: ' + CurerencyData.EntityInfo.MobileConfirm;
+                s += '<br>CountryID: ' + CurerencyData.EntityInfo.CountryID;
+                s += '<br>Status: ' + CurerencyData.EntityInfo.Status;
+                s += '<br>lid: ' + CurerencyData.EntityInfo.lid;
+                s += '<br>FTPHost: ' + CurerencyData.EntityInfo.FTPHost;
+                s += '<br>FTPPort: ' + CurerencyData.EntityInfo.FTPPort;
+                $('#EntityInfo').html(s);
+                successMsg();
+            }
+            else { errorMsg();};           
+        }
+
+        function successMsg() {
+            $("#successMsg").fadeIn('slow', function () {
+                $(this).delay(3000).fadeOut('slow');
+            });
+        }
+        function errorMsg() {
+            $("#errorMsg").fadeIn('slow', function () {
+                $(this).delay(3000).fadeOut('slow');
+            });
+        }
+    </script>
+</body>
+</html>

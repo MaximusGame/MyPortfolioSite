@@ -8,5 +8,6 @@ namespace MyPortfolioSite.Models
        Task<People> GetPeople(int? Id);
        Task<int> CreatePeople(People people);
        Task<bool> DeletePeople(int? Id);
+       Task<bool> EditPeople(People people, int? Id);
     }
 }

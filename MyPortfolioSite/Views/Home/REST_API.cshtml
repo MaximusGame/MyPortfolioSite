@@ -3,18 +3,32 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
+    <title>REST API</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <section class="section_1">
         <contaner class="h100">
             <div class="rest">
                 <h1>REST API</h1>
-                <h3>GET: /Person/Details/{id}</h3>
+                <h3>GET: /Person/All/</h3>
                 <h3>POST: /Person/Create</h3>
                 <p>JSON-body {“Name”:”…”, “Phone”:”…”}</p>
+                <h3>GET: /Person/Details/{id}</h3>
+                <h3>POST: /Person/Edit/{id}</h3>
+                <p>JSON-body {“Name”:”…”, “Phone”:”…”}</p>
                 <h3>GET: /Person/Delete/{id}</h3>
+                <h3>POST: /Person/EditAvatar/{id}</h3>
+                <p>form-data-body {KEY: new_avatar VALUE: image.png}</p>
+                <h3>GET: /Project/Details/{id}</h3>
+                <h3>POST: /Project/Create</h3>
+                <p>JSON-body {“Name”:”…”, “Price”:”…”}</p>
+                <h3>POST: /Project/Edit/{id}</h3>
+                <p>JSON-body {“Name”:”…”, “Price”:”…”}</p>
+                <h3>GET: /Person/Delete/{id}</h3>
+                <h3>GET: /Person/-----/{id}</h3>
+                <h3>GET: /Person/-----/{id}</h3>
             </div>
             @*<div>
                 <h1 class="display-4 text-center">How much is crypto currency right now?</h1>

@@ -21,7 +21,7 @@
     <div class="container">
         <div class="col px-md-5">
             <div class="p-3 border bg-success">
-                @using (Html.BeginForm("CreateNewPeople", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Person", FormMethod.Post, new { enctype = "multipart/json" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -67,7 +67,7 @@
     }*@
 
    <div div class="col text-center">
-       <a href="@Url.Action("EntityFramework_and_DB", "Home")" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
+       <a href="@Url.Action("DataBase", "Home")" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back</a>
    </div>
 </body>
 </html>
